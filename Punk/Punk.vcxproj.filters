@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{5a6c9cae-18d4-4315-a08c-dba85d3ec59d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects">
+      <UniqueIdentifier>{b4bcea61-36c1-4009-8523-405561028676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{7a027c66-5328-409a-b2f9-b620cb138358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\GL">
+      <UniqueIdentifier>{5a3c9a54-16ad-49ee-93f2-50b4651cf779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{941ddfd5-654d-4dce-a8ce-7c977949129c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{abe518bf-d5d6-4b65-9cd5-0cbf70eb5304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tasking">
+      <UniqueIdentifier>{fe017b66-d4f7-491c-8951-5376d59979fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Сore">
+      <UniqueIdentifier>{7ab85812-e5e7-4be9-a00f-6a858a95e6dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{dbf84250-e8ea-438f-8766-3d2a3c27222f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\AbstractGeometry">
+      <UniqueIdentifier>{857a1d92-05cf-4ac5-9bca-074f88086d4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{65b42443-b064-4fac-9546-c57dcb67db83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\EditorLayout">
+      <UniqueIdentifier>{c1426eca-7e6c-4ba5-a3ae-ac7fe26cb975}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\EditorLayout\Panel">
+      <UniqueIdentifier>{2bc425f3-e2b2-475d-870a-26912860ae81}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PEngine.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PGlobals.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glfw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_opengl3.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="PCamera.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PGameObject.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PLight.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PFramebufferGL.cpp">
+      <Filter>Graphics\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="PGraphicsGL.cpp">
+      <Filter>Graphics\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="PWindowGL.cpp">
+      <Filter>Graphics\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="PFramebuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PMesh3D.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PModel.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PShader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PTexture.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PTask.cpp">
+      <Filter>Tasking</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="PComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PVertexArrayBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PVertexArrayBufferGL.cpp">
+      <Filter>Graphics\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskRunner.cpp">
+      <Filter>Tasking</Filter>
+    </ClCompile>
+    <ClCompile Include="PStaticMeshComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PFrustum.cpp">
+      <Filter>Graphics\AbstractGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="PPLane.cpp">
+      <Filter>Graphics\AbstractGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="PRenderer3D.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PMesh2D.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PRenderPass.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PScene.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PIDSequence.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="PSceneRoot.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PEditorScene.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PEditorHierarchyWindow.cpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PEditorLayout.cpp">
+      <Filter>Core\EditorLayout</Filter>
+    </ClCompile>
+    <ClCompile Include="PEditorViewportWindow.cpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PEditorPropertyWindow.cpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="PEditorMenuBar.cpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PGraphics.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PShader.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PMesh.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PMesh3D.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PModel.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_glfw.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_opengl3.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="PTexture.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PGraphicsGL.hpp">
+      <Filter>Graphics\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="PFramebufferGL.hpp">
+      <Filter>Graphics\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="PWindow.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PWindowGL.hpp">
+      <Filter>Graphics\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="PGameObject.hpp">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PRenderable.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PCamera.hpp">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PLight.hpp">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PComponent.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PStaticMeshObject.hpp">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PTask.hpp">
+      <Filter>Tasking</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskRunner.hpp">
+      <Filter>Tasking</Filter>
+    </ClInclude>
+    <ClInclude Include="PEngine.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PGlobals.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PunkDefines.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PVertexArrayBuffer.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PVertexArrayBufferGL.hpp">
+      <Filter>Graphics\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="PFramebuffer.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PSceneRoot.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PStaticMeshComponent.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PScene.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PFrustum.hpp">
+      <Filter>Graphics\AbstractGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="PPLane.hpp">
+      <Filter>Graphics\AbstractGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="PRenderer3D.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PRenderPass.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PMesh2D.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PIDSequence.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PEditorScene.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PEditorHierarchyWindow.hpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PEditorLayout.hpp">
+      <Filter>Core\EditorLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="PEditorWindow.hpp">
+      <Filter>Core\EditorLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="PEditorViewportWindow.hpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PEditorPropertyWindow.hpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PEditorMenuBar.hpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

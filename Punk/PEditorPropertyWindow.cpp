@@ -123,13 +123,13 @@ void PEditorPropertyWindow::Render()
 
 void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObject>& gameObject)
 {
-	ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, 0.0f);
+	//ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, 0.0f);
 	auto objectType = DetectObjectType(gameObject);
 	if (ImGui::TreeNodeEx("General", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		
 		ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::GetStyleColorVec4(ImGuiCol_TabUnfocusedActive));
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4, 4));
+		//ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4, 4));
 		//ImGui::BeginChild("General properties", ImVec2(0, 0), false, ImGuiWindowFlags_AlwaysAutoResize);
 
 		ImGui::Text(typeid(*gameObject.get()).name());
@@ -183,10 +183,10 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 		}
 		//ImGui::EndChild();
 		ImGui::TreePop();
-		ImGui::PopStyleVar(1);
+		//ImGui::PopStyleVar(1);
 		ImGui::PopStyleColor(1);	
 	}
-	ImGui::PopStyleVar(1);
+	//ImGui::PopStyleVar(1);
 }
 
 PEditorObjectType PEditorPropertyWindow::DetectObjectType(const std::shared_ptr<PGameObject>& gameObject)

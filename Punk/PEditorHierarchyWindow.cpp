@@ -8,8 +8,12 @@
 
 void PEditorHierarchyWindow::Render()
 {
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.f, 0.f));
 	if (ImGui::Begin("Scene Hierarchy"))
 	{
+		
+		//ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4.f, 4.f));
+
 		auto width = ImGui::GetWindowSize();
 		width.x /= 2;
 		static ImGuiTableFlags flags = ImGuiTableFlags_BordersV /*| ImGuiTableFlags_BordersOuterH */| ImGuiTableFlags_Resizable | ImGuiTableFlags_RowBg | ImGuiTableFlags_NoBordersInBody;
@@ -30,6 +34,9 @@ void PEditorHierarchyWindow::Render()
 			ImGui::OpenPopup("Editor Hierarchy Menu");
 			
 		}
+
+		ImGui::PopStyleVar(1);
+
 		if (ImGui::BeginPopup("Editor Hierarchy Menu"))
 		{
 			if (ImGui::BeginMenu("Add object"))
@@ -37,6 +44,7 @@ void PEditorHierarchyWindow::Render()
 				if (ImGui::MenuItem("Light"))
 				{
 					std::shared_ptr<PGameObject> newObject = std::static_pointer_cast<PGameObject>(std::make_shared<PLight>());
+					newObject->SetName("Game Light");
 					m_layoutContext->GetContext()->AddGameObject(newObject);
 					auto scene = std::static_pointer_cast<PEditorScene>(m_layoutContext->GetContext());
 					scene->m_selectionContext = newObject->ID();
@@ -46,7 +54,11 @@ void PEditorHierarchyWindow::Render()
 			ImGui::EndPopup();
 		}
 		ImGui::End();
+
+		
 	}
+	else
+		ImGui::PopStyleVar(1);
 }
 
 void PEditorHierarchyWindow::DrawNode(const std::pair<std::string, std::shared_ptr<PGameObject>> node)
@@ -65,13 +77,13 @@ void PEditorHierarchyWindow::DrawNode(const std::pair<std::string, std::shared_p
 	}
 	if (ImGui::IsItemHovered())
 	{
-		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(1.f, 1.f));
+		//ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(1.f, 1.f));
 		ImGui::BeginTooltip();
 		//ImGui::LabelText(std::string("ID:").c_str(), node.first.c_str());
 		ImGui::Text((std::string("ID:") + node.first).c_str());
 		ImGui::Text((std::string("Type:") + std::string(typeid(*node.second.get()).name())).c_str());
 		ImGui::EndTooltip();
-		ImGui::PopStyleVar(1);
+		//ImGui::PopStyleVar(1);
 	}
 	if (opened)
 	{

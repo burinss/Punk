@@ -24,6 +24,7 @@ void PStaticMeshComponent::Render(double deltaTime, const std::shared_ptr<PShade
 		glm::mat4 projectionMatrix = scene->ActiveCamera()->ProjectionMatrix();
 		glm::mat4 viewMatrix = scene->ActiveCamera()->ViewMatrix();
 		glm::mat4 viewProjection = scene->ViewProjection();
+
 		shader->Use();
 		shader->SetMat4("view", viewMatrix);
 		shader->SetMat4("projection", projectionMatrix);
@@ -36,18 +37,22 @@ void PStaticMeshComponent::Render(double deltaTime, const std::shared_ptr<PShade
 		{
 			if (light.second->enabled)
 			{
-				numLights++;
-				shader->SetInt("numLights", numLights);
+				shader->SetVec3(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".lightColor"), light.second->color);
+				shader->SetVec3(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".position"), light.second->Position());
+				shader->SetFloat(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".lightRadius"), 100.f);
+				shader->SetFloat(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".compression"), 5.f);
 
-				shader->SetVec3(std::string("lightsPos[") + std::to_string(numLights-1) + std::string("]"), light.second->Position());
-			
+				numLights++;
 			}
 		}
-		shader->SetVec3("lightColor", scene->GameLights().begin()->second->color);
+
+		shader->SetInt("numLights", numLights);
+
+		//shader->SetVec3("lightColor", scene->GameLights().begin()->second->color);
 		shader->SetMat4("P_lightSpace", scene->GameLights().begin()->second->LightSpaceMatrix());
 
-		shader->SetFloat("lightRadius", 100.f);
-		shader->SetFloat("compression", 5.f);
+		//shader->SetFloat("lightRadius", 100.f);
+		//shader->SetFloat("compression", 5.f);
 
 		//if(selected)PSystems::GetGraphics()->EnableStencilBuffer();
 

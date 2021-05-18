@@ -2,20 +2,26 @@
 //out vec4 FragColor;
 layout(location = 0) out vec4 FragColor;
 
+struct Light
+{
+	vec3 lightColor;
+	vec3 position;
+	float lightRadius;
+	float compression;
+};
+
 in    vec3 FragPos;
 in    vec2 TexCoords;
-in    vec3 TangentLightsPos[4];
 in    vec3 TangentViewPos;
 in    vec3 TangentFragPos;
 in    vec3 Normal;
 in    vec4 FragPosLightSpace;
 
-uniform vec3 lightsPos[4];
+uniform     Light LightsArray[9];
+
 uniform int numLights;
-uniform vec3 lightColor;
 uniform vec3 viewPos;
-uniform float lightRadius;
-uniform float compression;
+
 uniform sampler2D shadowSampler;
 
 uniform sampler2D texture_diffuse1;
@@ -94,43 +100,6 @@ float Random(vec4 co) {
   return fract(sin(dp) * 43758.5453);
 }
 
-vec3 CalcPointLight(vec3 position, vec3 normal, vec3 TangentLightPos)
-{
-    vec3 color = texture(texture_diffuse1, TexCoords).rgb;
-    // ambient
-    vec3 ambient = 0.01 * color;
-    // diffuse
-    vec3 lightDir = normalize(TangentLightPos - TangentFragPos);
-    float diff = max(dot(lightDir, normal), 0.0);
-    float attenuation = pow(smoothstep(lightRadius, 0, length(position - FragPos)), compression);
-    vec3 diffuse = diff * color * attenuation;
-    // specular
-    vec3 viewDir = normalize(TangentViewPos - TangentFragPos);
-    vec3 reflectDir = reflect(-lightDir, normal);
-    vec3 halfwayDir = normalize(lightDir + viewDir);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 256);
-    vec3 specular = vec3(0.2) * spec; // * texture(texture_specular1, TexCoords).rgb;
-    return (ambient + diffuse + specular);
-} 
-
-float CalculateShadow(vec4 lightSpacePosition) {
-  vec3 projCoords = lightSpacePosition.xyz / lightSpacePosition.w;
-  if (projCoords.z > 1.0)
-    return 0.0;
-
-  projCoords = projCoords * 0.5 + 0.5;
-
-  // PCF
-  float shadow = 0.0;
-  float bias = max(0.05 * (1.0 - dot(Normal, lightSpacePosition.xyz - FragPos)), 0.005);  
-  for (int i = 0; i < 16; ++i) {
-    float z = texture(shadowSampler, projCoords.xy + poissonDisk[i]).r;
-    shadow += z < (projCoords.z - bias) ? 1.0 : 0.0;
-  }
-  return shadow / 16.0;
-}
-
-
 float GetBlockerDistance(vec3 shadowCoords, float lightSize) {
     int blockers = 0;
     float averageBlockerDistance = 0.0;
@@ -175,76 +144,43 @@ float PCSSShadow(vec4 lightSpacePosition, float lightSize) {
     return shadow / 32 * 0.85;
 }
 
-float ShadowCalculation(vec4 fragPosLightSpace)
-{
-    // perform perspective divide
-    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-    // transform to [0,1] range
-    projCoords = projCoords * 0.5 + 0.5;
-    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
-    float closestDepth = texture(shadowSampler, projCoords.xy).r; 
-    // get depth of current fragment from light's perspective
-    float currentDepth = projCoords.z;
-    // calculate bias (based on depth map resolution and slope)
-    vec3 normal = normalize(Normal);
-    vec3 lightDir = normalize(lightsPos[0] - FragPos);
-    float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
-    // check whether current frag pos is in shadow
-    // float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
-    // PCF
-    float shadow = 0.0;
-    vec2 texelSize = 1.0 / textureSize(shadowSampler, 0);
-    for(int x = -1; x <= 1; ++x)
-    {
-        for(int y = -1; y <= 1; ++y)
-        {
-            float pcfDepth = texture(shadowSampler, projCoords.xy + vec2(x, y) * texelSize).r; 
-            shadow += currentDepth - bias > pcfDepth  ? 1.0 : 0.0;        
-        }    
-    }
-    shadow /= 9.0;
-    
-    // keep the shadow at 0.0 when outside the far_plane region of the light's frustum.
-    if(projCoords.z > 1.0)
-        shadow = 0.0;
-        
-    return shadow;
-}
+
 void main()
 {    
     vec3 scatteredLight = vec3(0.0);
     vec3 reflectedLight = vec3(0.0);
-    
+
     for (int i = 0; i < numLights; i++) {
     
-    vec3 lightDirection = normalize(lightsPos[i] - FragPos);
+    	vec3 lightDirection = normalize(LightsArray[i].position - FragPos);
     
-    vec3 halfVector = normalize(lightDirection + (viewPos - FragPos));
+    	vec3 halfVector = normalize(lightDirection + (viewPos - FragPos));
 
-    float attenunation = 1.0;
+    	float attenunation = 1.0;
     
-    float lightDistance = length(lightDirection);
-    lightDirection = lightDirection / lightDistance;
+    	float lightDistance = length(lightDirection);
+    	lightDirection = lightDirection / lightDistance;
 
-    //attenunation = 1.0 / (lightDistance * lightDistance);
-    attenunation = pow(smoothstep(lightRadius, 0, length(lightsPos[i] - FragPos)), compression);
-    float diffuse = max(0.0, dot(Normal, lightDirection));
+    	//attenunation = 1.0 / (lightDistance * lightDistance);
+    	attenunation = pow(smoothstep(LightsArray[i].lightRadius, 0, length(LightsArray[i].position - FragPos)), LightsArray[i].compression);
+    	float diffuse = max(0.0, dot(Normal, lightDirection));
 
-    float specular = max(0.0, dot(Normal, halfVector));
+    	float specular = max(0.0, dot(Normal, halfVector));
 
-    specular = (diffuse == 0.0) ? 0.0 : pow(specular, 256);
+    	specular = (diffuse == 0.0) ? 0.0 : pow(specular, 256);
 
-    scatteredLight += lightColor * diffuse * attenunation;
-    //reflectedLight += lightColor * specular * attenunation;
+    	scatteredLight += LightsArray[i].lightColor * diffuse * attenunation;
+    	//reflectedLight += LightsArray[i].lightColor * specular * attenunation;
     }
 
     vec4 albedoTexData = texture(texture_diffuse1, TexCoords);
     vec4 albd = vec4(pow(albedoTexData.rgb, vec3(2.2)), albedoTexData.a);
+
+    float shadow = PCSSShadow(FragPosLightSpace, 1/LightsArray[0].lightRadius);
     
-    float shadow = PCSSShadow(FragPosLightSpace, 1/lightRadius);
     //float shadow = CalculateShadow(FragPosLightSpace);
     //float shadow = ShadowCalculation(FragPosLightSpace);
-    vec3 color = min(albd.rgb + (1.0 - shadow) *  (scatteredLight + reflectedLight), vec3(1.0));
+    vec3 color = min((albd.rgb) + ((1.0 - shadow) *  (scatteredLight + reflectedLight)), vec3(1.0));
     
     FragColor = vec4(color, albd.a);
     //FragColor = vec4(vec3(shadow), albd.a);

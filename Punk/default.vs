@@ -7,7 +7,7 @@ layout (location = 4) in vec3 aBitangent;
 
 out    vec3 FragPos;
 out    vec2 TexCoords;
-out    vec3 TangentLightsPos[4];
+out    vec3 TangentLightsPos[9];
 out    vec3 TangentViewPos;
 out    vec3 TangentFragPos;
 out    vec3 Normal;
@@ -17,9 +17,9 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform mat4 P_lightSpace;
-uniform vec3 lightsPos[4];
 uniform int numLights;
 uniform vec3 viewPos;
+uniform vec3 lightsPos[9];
 
 void main()
 {

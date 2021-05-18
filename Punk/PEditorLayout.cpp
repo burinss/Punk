@@ -9,6 +9,7 @@
 #include "PEditorScene.hpp"
 #include "PEditorPropertyWindow.hpp"
 #include "PEditorMenuBar.hpp"
+#include "PEditorContentBrowserWindow.hpp"
 #include "ImGuizmo.h"
 
 void PEditorLayout::Initialize()
@@ -25,9 +26,9 @@ void PEditorLayout::Initialize()
 	//ImGui::StyleColorsDark();
 	ImGui::StyleColorsClassic();
 
-
-	ImGui::GetIO().Fonts->AddFontFromFileTTF("arial.ttf", 14.0f);
-	ImGui::GetIO().Fonts->Build();
+	auto& fonts = ImGui::GetIO().Fonts;
+	fonts->AddFontFromFileTTF("arial.ttf", 14.0f,NULL,fonts->GetGlyphRangesCyrillic());
+	fonts->Build();
 
 	ImVec4* colors = ImGui::GetStyle().Colors;
 	colors[ImGuiCol_WindowBg]			=	ImVec4(0.17f, 0.16f, 0.16f, 0.85f);
@@ -59,6 +60,7 @@ void PEditorLayout::Initialize()
 	m_windows.push_back(std::make_shared<PEditorHierarchyWindow>(shared_from_this()));
 	m_windows.push_back(std::make_shared<PEditorViewportWindow>(shared_from_this()));
 	m_windows.push_back(std::make_shared<PEditorPropertyWindow>(shared_from_this()));
+	m_windows.push_back(std::make_shared<PEditorContentBrowserWindow>(shared_from_this()));
 	Task::Initialize();
 }
 

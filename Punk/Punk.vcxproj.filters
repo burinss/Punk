@@ -167,6 +167,9 @@
     <ClCompile Include="ImGuizmo.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="PEditorContentBrowserWindow.cpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PGraphics.hpp">
@@ -315,6 +318,9 @@
     </ClInclude>
     <ClInclude Include="ImGuizmo.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="PEditorContentBrowserWindow.hpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

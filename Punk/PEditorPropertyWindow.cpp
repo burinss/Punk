@@ -39,9 +39,6 @@ void PEditorPropertyWindow::Render()
 				if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					ImGui::Separator();
-					//ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::GetStyleColorVec4(ImGuiCol_TabUnfocusedActive));
-
-					//ImGui::BeginChild("properties", ImVec2(0, 100.f), false, ImGuiWindowFlags_AlwaysAutoResize);
 
 					glm::vec3 position = object->Position();
 					glm::quat rotation = object->Orientation();
@@ -56,7 +53,6 @@ void PEditorPropertyWindow::Render()
 
 
 					if (ImGui::DragFloat3("Orientation", &degreesVec.x, 1.0f, 0.0f, 0.0f, "%.2f"))
-						//if (glm::distance(rotateDt, glm::vec3(0.0f)) > 0)
 					{
 						glm::vec3 rotateDt = glm::degrees(rotationVec) - degreesVec;
 						rotation = glm::rotate(rotation, glm::radians(rotateDt.x), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -68,13 +64,8 @@ void PEditorPropertyWindow::Render()
 					if (ImGui::DragFloat3("Scale", &scale.x, 0.1f, 0.0f, 0.0f, "%.2f"))
 						object->SetScale(scale);
 
-
-					//ImGui::EndChild();
 					ImGui::TreePop();
-					//ImGui::PopStyleColor(1);
 				}
-				//ImGui::PopStyleVar(1);
-
 
 				if(ImGui::Begin("Viewport"))
 				{
@@ -132,11 +123,11 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 				ImGui::TableNextColumn();
 				{
 					ImGui::Text("Enable:");
-					//ImGui::SameLine(110.0f);
+
 					ImGui::TableNextColumn();
+
 					ImGui::Checkbox("##enableCheckbox", &light->enabled);
 				}
-				//ImGui::SameLine(70.0f);
 				ImGui::TableNextRow();
 				ImGui::TableNextColumn();
 				{
@@ -147,7 +138,7 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 
 					ImGui::PushID("TypeCombo");
 
-					ImGui::SetNextItemWidth(90.f);
+					//ImGui::SetNextItemWidth(90.f);
 					if (ImGui::BeginCombo("", lightTypes[(int)light->type].c_str()))
 					{
 						for (int i = 0; i < 4; i++)
@@ -178,6 +169,7 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 					ImGui::Text("Compression:");
 
 					ImGui::TableNextColumn();
+
 					ImGui::PushID("Compression float");
 					ImGui::DragFloat("", &light->compression);
 					ImGui::PopID();
@@ -199,7 +191,6 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 		}
 		else if (objectType == PEditorObjectType::CAMERA)
 		{
-			
 
 			if (ImGui::BeginTable("", 2, flags))
 			{

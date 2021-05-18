@@ -11,9 +11,6 @@ void PEditorHierarchyWindow::Render()
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.f, 0.f));
 	if (ImGui::Begin("Scene Hierarchy"))
 	{
-		
-		//ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4.f, 4.f));
-
 		auto width = ImGui::GetWindowSize();
 		width.x /= 2;
 		static ImGuiTableFlags flags = ImGuiTableFlags_BordersV /*| ImGuiTableFlags_BordersOuterH */| ImGuiTableFlags_Resizable | ImGuiTableFlags_RowBg | ImGuiTableFlags_NoBordersInBody;
@@ -32,7 +29,6 @@ void PEditorHierarchyWindow::Render()
 		if (ImGui::IsWindowHovered()&&ImGui::IsMouseClicked(ImGuiMouseButton_Right))
 		{
 			ImGui::OpenPopup("Editor Hierarchy Menu");
-			
 		}
 
 		ImGui::PopStyleVar(1);
@@ -43,10 +39,12 @@ void PEditorHierarchyWindow::Render()
 			{
 				if (ImGui::MenuItem("Light"))
 				{
-					std::shared_ptr<PGameObject> newObject = std::static_pointer_cast<PGameObject>(std::make_shared<PLight>());
+					auto newObject = std::static_pointer_cast<PGameObject>(std::make_shared<PLight>());
+					auto scene = std::static_pointer_cast<PEditorScene>(m_layoutContext->GetContext());
+
 					newObject->SetName("Game Light");
 					m_layoutContext->GetContext()->AddGameObject(newObject);
-					auto scene = std::static_pointer_cast<PEditorScene>(m_layoutContext->GetContext());
+
 					scene->m_selectionContext = newObject->ID();
 				}
 				ImGui::EndMenu();
@@ -61,12 +59,11 @@ void PEditorHierarchyWindow::Render()
 
 void PEditorHierarchyWindow::DrawNode(const std::pair<std::string, std::shared_ptr<PGameObject>> node)
 {
-
 	ImGui::TableNextRow();
 	ImGui::TableNextColumn();
 
 	auto scene = std::static_pointer_cast<PEditorScene>(m_layoutContext->GetContext());
-	ImGuiTreeNodeFlags flags = (scene->m_selectionContext==node.first)?ImGuiTreeNodeFlags_Selected: 0 | ImGuiTreeNodeFlags_OpenOnArrow;
+	auto flags = (scene->m_selectionContext==node.first)?ImGuiTreeNodeFlags_Selected: 0 | ImGuiTreeNodeFlags_OpenOnArrow;
 	bool opened = ImGui::TreeNodeEx((void*)node.second.get(), flags, node.second->Name().c_str());
 	
 	if (ImGui::IsItemClicked())
@@ -75,13 +72,12 @@ void PEditorHierarchyWindow::DrawNode(const std::pair<std::string, std::shared_p
 	}
 	if (ImGui::IsItemHovered())
 	{
-		//ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(1.f, 1.f));
 		ImGui::BeginTooltip();
-		//ImGui::LabelText(std::string("ID:").c_str(), node.first.c_str());
+
 		ImGui::Text((std::string("ID:") + node.first).c_str());
 		ImGui::Text((std::string("Type:") + std::string(typeid(*node.second.get()).name())).c_str());
+
 		ImGui::EndTooltip();
-		//ImGui::PopStyleVar(1);
 	}
 	if (opened)
 	{
@@ -89,5 +85,5 @@ void PEditorHierarchyWindow::DrawNode(const std::pair<std::string, std::shared_p
 	}
 
 	ImGui::TableNextColumn();
-	ImGui::Text(typeid(*node.second.get()).name());
+	ImGui::TextDisabled(typeid(*node.second.get()).name());
 }

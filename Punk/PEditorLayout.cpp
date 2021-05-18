@@ -25,11 +25,10 @@ void PEditorLayout::Initialize()
 	//ImGui::StyleColorsDark();
 	ImGui::StyleColorsClassic();
 
-	ImFontConfig config;
 
 	ImGui::GetIO().Fonts->AddFontFromFileTTF("arial.ttf", 14.0f);
 	ImGui::GetIO().Fonts->Build();
-	//ImGui::GetIO().Fonts->
+
 	ImVec4* colors = ImGui::GetStyle().Colors;
 	colors[ImGuiCol_WindowBg]			=	ImVec4(0.17f, 0.16f, 0.16f, 0.85f);
 	colors[ImGuiCol_ChildBg]			=	ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
@@ -50,15 +49,12 @@ void PEditorLayout::Initialize()
 	colors[ImGuiCol_TableHeaderBg]		=	ImVec4(0.32f, 0.34f, 0.47f, 1.00f);
 	colors[ImGuiCol_TabUnfocusedActive] =   ImVec4(0.42f, 0.42f, 0.42f, 0.84f);
 
-
-
-
-	//colors[imguicol_]
-
-	//ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f,0.0f));
+	auto &frameRounding =  ImGui::GetStyle().FrameRounding;
+	frameRounding = 2.0f;
 
 	ImGui_ImplGlfw_InitForOpenGL(glfwGetCurrentContext(), true);
 	ImGui_ImplOpenGL3_Init("version 400 core");
+
 	m_windows.push_back(std::make_shared<PEditorMenuBar>(shared_from_this()));
 	m_windows.push_back(std::make_shared<PEditorHierarchyWindow>(shared_from_this()));
 	m_windows.push_back(std::make_shared<PEditorViewportWindow>(shared_from_this()));
@@ -73,8 +69,7 @@ void PEditorLayout::Update(double deltaTime)
 	ImGui::NewFrame();
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 	ImGuizmo::BeginFrame();
-	//auto editor = std::static_pointer_cast<PEditorScene>(m_sceneContext.lock());
-	//editor->m_selectionContext = "0";
+
 	for (auto it : m_windows)
 		it->Render();
 

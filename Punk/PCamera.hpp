@@ -17,6 +17,7 @@ private:
 	float nearClippingPlane_ = 0.01f;
 	float farClippingPlane_ = 1000.0f;
 	float cameraDamping_ = 0.02f;
+	PCameraProjectionMode m_projectionMode;
 	//ZCameraType cameraType_;
 	//ZCameraMovementStyle movementStyle_;
 	PFrustum frustum_;
@@ -48,6 +49,10 @@ public:
 	float NearField() const { return nearClippingPlane_; }
 	float FarField() const { return farClippingPlane_; }
 	PFrustum& Frustum() { return frustum_; }
+
+	PCameraProjectionMode GetProjectionMode() { return m_projectionMode; }
+	void SetProjecitonMode(PCameraProjectionMode mode) { m_projectionMode = mode; }
+
 	float Zoom() const { return zoom_; }
 	void SetZoom(const float zoom) { zoom_ = zoom; }
 	float Speed() const { return movementSpeed_; }

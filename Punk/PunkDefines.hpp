@@ -18,6 +18,10 @@ const glm::vec3 WORLD_FRONT(0.0f, 0.0f, -1.0f);
 
 using PTaskList = std::list<std::shared_ptr<Task>>;
 
+enum class PCameraProjectionMode
+{
+	Perspective, Orthographic
+};
 
 enum class PPlayState
 {

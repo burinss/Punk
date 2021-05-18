@@ -24,17 +24,40 @@ glm::mat4 PCamera::ViewMatrix()
 glm::mat4 PCamera::ProjectionMatrix()
 {
 	glm::mat4 projectionMatrix(1.f);
-	float aspect = 1.7777f;
 	if (auto scene = m_sceneContext.lock())
-		if (scene->GameConfig().windowSettings.windowSize.x > 0)
-			aspect = scene->GameConfig().windowSettings.Aspect();
+	{
 
-	projectionMatrix = glm::perspective(
-		glm::radians(zoom_),
-		aspect,
-		nearClippingPlane_,
-		farClippingPlane_);
+		if (m_projectionMode == PCameraProjectionMode::Perspective)
+		{
+			float aspect = 1.7777f;
 
+			if (scene->GameConfig().windowSettings.windowSize.x > 0)
+				aspect = scene->GameConfig().windowSettings.Aspect();
+
+			projectionMatrix = glm::perspective(
+				glm::radians(zoom_),
+				aspect,
+				nearClippingPlane_,
+				farClippingPlane_);
+
+			return projectionMatrix;
+		}
+		else
+		{
+			float widthAspect = 1.0f, heightAspect = 1.0f;
+			if (scene->GameConfig().windowSettings.windowSize.x > 0)
+			{
+				glm::vec2 windowSize = scene->GameConfig().windowSettings.windowSize;
+
+				//widthAspect = windowSize.x / windowSize.y;
+				//heightAspect = windowSize.y / windowSize.x;
+				widthAspect = windowSize.x / 10;
+				heightAspect = windowSize.y / 10;
+				//projectionMatrix = glm::ortho(-widthAspect, widthAspect, -heightAspect, heightAspect);
+			}
+			projectionMatrix = glm::ortho(-widthAspect, widthAspect, -heightAspect, heightAspect, -0.000f, 1000.f);
+		}
+	}
 	return projectionMatrix;
 }
 

@@ -43,14 +43,9 @@ void PEditorPropertyWindow::Render()
 
 					//ImGui::BeginChild("properties", ImVec2(0, 100.f), false, ImGuiWindowFlags_AlwaysAutoResize);
 
-					ImGui::Text("");
-
 					glm::vec3 position = object->Position();
 					glm::quat rotation = object->Orientation();
 					glm::vec3 scale = object->Scale();
-
-					ImGui::Text("");
-					ImGui::SameLine();
 
 					if (ImGui::DragFloat3("Position", &position.x, 1.0f, 0.0f, 0.0f, "%.2f"))
 						object->SetPosition(position);
@@ -59,8 +54,6 @@ void PEditorPropertyWindow::Render()
 					glm::vec3 rotationVec = eulerAngles(rotation);
 					glm::vec3 degreesVec = glm::degrees(rotationVec);
 
-					ImGui::Text("");
-					ImGui::SameLine();
 
 					if (ImGui::DragFloat3("Orientation", &degreesVec.x, 1.0f, 0.0f, 0.0f, "%.2f"))
 						//if (glm::distance(rotateDt, glm::vec3(0.0f)) > 0)
@@ -71,9 +64,6 @@ void PEditorPropertyWindow::Render()
 						rotation = glm::rotate(rotation, glm::radians(rotateDt.z), glm::vec3(0.0f, 0.0f, 1.0f));
 						object->SetOrientation(rotation);
 					}
-
-					ImGui::Text("");
-					ImGui::SameLine();
 
 					if (ImGui::DragFloat3("Scale", &scale.x, 0.1f, 0.0f, 0.0f, "%.2f"))
 						object->SetScale(scale);
@@ -211,19 +201,50 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 		{
 			
 
-			if (ImGui::BeginTable("",2, flags))
+			if (ImGui::BeginTable("", 2, flags))
 			{
+				auto camera = std::static_pointer_cast<PCamera>(gameObject);
+
 				ImGui::TableNextRow();
 				ImGui::TableNextColumn();
+				{
 
-				auto camera = std::static_pointer_cast<PCamera>(gameObject);
-				ImGui::Text("Fov:");
-				float zoom = camera->Zoom();
+					ImGui::Text("Field of view:");
+					float zoom = camera->Zoom();
 
+					ImGui::TableNextColumn();
+
+					ImGui::DragFloat("", &zoom);
+					camera->SetZoom(zoom);
+				}
+
+				ImGui::TableNextRow();
 				ImGui::TableNextColumn();
+				{
 
-				ImGui::DragFloat("", &zoom);
-				camera->SetZoom(zoom);
+					ImGui::Text("Projection type:");
+
+					ImGui::TableNextColumn();
+
+					ImGui::PushID("ProjectionTypeCombo");
+
+					const std::string projectionType[] = { "Perspective", "Orthographic" };
+
+					auto projectionMode = camera->GetProjectionMode();
+
+					if (ImGui::BeginCombo("", projectionType[(int)projectionMode].c_str()))
+					{
+						for (int i = 0; i < 2; i++)
+						{
+							if (ImGui::Selectable(projectionType[i].c_str(), projectionType[i] == projectionType[(int)projectionMode]))
+							{
+								camera->SetProjecitonMode((PCameraProjectionMode)i);
+							}
+						}
+						ImGui::EndCombo();
+					}
+					ImGui::PopID();
+				}
 
 				ImGui::EndTable();
 			}

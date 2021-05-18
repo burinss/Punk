@@ -39,8 +39,8 @@ void PStaticMeshComponent::Render(double deltaTime, const std::shared_ptr<PShade
 			{
 				shader->SetVec3(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".lightColor"), light.second->color);
 				shader->SetVec3(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".position"), light.second->Position());
-				shader->SetFloat(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".lightRadius"), 100.f);
-				shader->SetFloat(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".compression"), 5.f);
+				shader->SetFloat(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".lightRadius"), light.second->radius);
+				shader->SetFloat(std::string("LightsArray[") + std::to_string(numLights) + std::string("]") + std::string(".compression"), light.second->compression);
 
 				numLights++;
 			}

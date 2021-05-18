@@ -54,8 +54,6 @@ void PEditorHierarchyWindow::Render()
 			ImGui::EndPopup();
 		}
 		ImGui::End();
-
-		
 	}
 	else
 		ImGui::PopStyleVar(1);

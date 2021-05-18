@@ -31,7 +31,7 @@ void PEditorPropertyWindow::Render()
 					object->SetName(name);
 				}
 
-				ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, 0.0f);
+				//ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, 0.0f);
 				ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
 
 				ImGui::Separator();
@@ -39,7 +39,7 @@ void PEditorPropertyWindow::Render()
 				if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					ImGui::Separator();
-					ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::GetStyleColorVec4(ImGuiCol_TabUnfocusedActive));
+					//ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::GetStyleColorVec4(ImGuiCol_TabUnfocusedActive));
 
 					//ImGui::BeginChild("properties", ImVec2(0, 100.f), false, ImGuiWindowFlags_AlwaysAutoResize);
 
@@ -81,9 +81,9 @@ void PEditorPropertyWindow::Render()
 
 					//ImGui::EndChild();
 					ImGui::TreePop();
-					ImGui::PopStyleColor(1);
+					//ImGui::PopStyleColor(1);
 				}
-				ImGui::PopStyleVar(1);
+				//ImGui::PopStyleVar(1);
 
 
 				if(ImGui::Begin("Viewport"))
@@ -92,9 +92,6 @@ void PEditorPropertyWindow::Render()
 					auto viewportSize = ImGui::GetWindowSize();
 					auto camera = editor->ActiveCamera();
 
-					//glm::mat4 viewMatrix = glm::translate(glm::mat4(1.f), camera->Position()) * glm::mat4_cast(camera->Orientation());
-					//auto view = glm::inverse(editor->ActiveCamera()->ModelMatrix());
-					//auto view = glm::inverse(viewMatrix);
 					auto view = editor->ActiveCamera()->ViewMatrix();
 
 					glm::mat4 modelMatrix = object->ModelMatrix();
@@ -124,64 +121,113 @@ void PEditorPropertyWindow::Render()
 void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObject>& gameObject)
 {
 	//ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, 0.0f);
+	
+
 	auto objectType = DetectObjectType(gameObject);
 	if (ImGui::TreeNodeEx("General", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		
+		ImGuiTableFlags flags = /*ImGuiTableFlags_BordersV | ImGuiTableFlags_BordersOuterH  |*/ ImGuiTableFlags_Resizable;
+
 		ImGui::PushStyleColor(ImGuiCol_ChildBg, ImGui::GetStyleColorVec4(ImGuiCol_TabUnfocusedActive));
 		//ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4, 4));
-		//ImGui::BeginChild("General properties", ImVec2(0, 0), false, ImGuiWindowFlags_AlwaysAutoResize);
 
 		ImGui::Text(typeid(*gameObject.get()).name());
 		if (objectType == PEditorObjectType::LIGHT)
 		{
 			const std::string lightTypes[] = { "Directional", "Point", "Spot", "Area" };
 			auto light = std::static_pointer_cast<PLight>(gameObject);
-
-			ImGui::Text("Enable:");
-			ImGui::SameLine(110.0f);
-			ImGui::Checkbox("##enableCheckbox", &light->enabled);
-
-			//ImGui::SameLine(70.0f);
-
-			ImGui::Text("Type:");
-
-			ImGui::SameLine(110.0f);
-
-			ImGui::PushID("TypeCombo");
-
-			ImGui::SetNextItemWidth(90.f);
-			if (ImGui::BeginCombo("", lightTypes[(int)light->type].c_str()))
+			if (ImGui::BeginTable("", 2, flags))
 			{
-				for (int i = 0; i < 4; i++)
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
 				{
-					if (ImGui::Selectable(lightTypes[i].c_str(), lightTypes[i] == lightTypes[(int)light->type]))
-					{
-						light->type = (PLightType)i;
-					}
+					ImGui::Text("Enable:");
+					//ImGui::SameLine(110.0f);
+					ImGui::TableNextColumn();
+					ImGui::Checkbox("##enableCheckbox", &light->enabled);
 				}
-				ImGui::EndCombo();
-			}
-			ImGui::PopID();
+				//ImGui::SameLine(70.0f);
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				{
+					ImGui::Text("Type:");
 
-			ImGui::PushID("LightColorPicker");
-			{
-				//ImGui::Set
-				ImGui::Text("Color:");
-				ImGui::SameLine(110.0f);
-				ImGui::ColorEdit3("", &light->color[0],ImGuiColorEditFlags_NoInputs);
+					//ImGui::SameLine(110.0f);
+					ImGui::TableNextColumn();
+
+					ImGui::PushID("TypeCombo");
+
+					ImGui::SetNextItemWidth(90.f);
+					if (ImGui::BeginCombo("", lightTypes[(int)light->type].c_str()))
+					{
+						for (int i = 0; i < 4; i++)
+						{
+							if (ImGui::Selectable(lightTypes[i].c_str(), lightTypes[i] == lightTypes[(int)light->type]))
+							{
+								light->type = (PLightType)i;
+							}
+						}
+						ImGui::EndCombo();
+					}
+					ImGui::PopID();
+				}
+
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				{
+					ImGui::Text("Color:");
+
+					ImGui::TableNextColumn();
+
+					ImGui::ColorEdit3("", &light->color[0], ImGuiColorEditFlags_NoInputs);
+				}
+
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				{
+					ImGui::Text("Compression:");
+
+					ImGui::TableNextColumn();
+					ImGui::PushID("Compression float");
+					ImGui::DragFloat("", &light->compression);
+					ImGui::PopID();
+				}
+
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				{
+					ImGui::Text("Radius:");
+
+					ImGui::TableNextColumn();
+
+					ImGui::PushID("Radius float");
+					ImGui::DragFloat("", &light->radius);
+					ImGui::PopID();
+				}
+				ImGui::EndTable();
 			}
-			ImGui::PopID();
 		}
 		else if (objectType == PEditorObjectType::CAMERA)
 		{
-			auto camera = std::static_pointer_cast<PCamera>(gameObject);
-			ImGui::Text("Fov:");
-			float zoom = camera->Zoom();
-			ImGui::DragFloat("", &zoom);
-			camera->SetZoom(zoom);
+			
+
+			if (ImGui::BeginTable("",2, flags))
+			{
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+
+				auto camera = std::static_pointer_cast<PCamera>(gameObject);
+				ImGui::Text("Fov:");
+				float zoom = camera->Zoom();
+
+				ImGui::TableNextColumn();
+
+				ImGui::DragFloat("", &zoom);
+				camera->SetZoom(zoom);
+
+				ImGui::EndTable();
+			}
 		}
-		//ImGui::EndChild();
 		ImGui::TreePop();
 		//ImGui::PopStyleVar(1);
 		ImGui::PopStyleColor(1);	

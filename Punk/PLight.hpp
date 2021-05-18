@@ -13,6 +13,8 @@ public:
 	PLightType type;
 	glm::vec3 ambient{ 0.1f };
 	glm::vec3 color{ 0.9f };
+	float compression = 5.f;
+	float radius = 100.f;
 
 	PLight(const glm::vec3& position = glm::vec3(0.f, 1.f, 0.f), const glm::quat& orientation = glm::quat(glm::vec3(0.f)),PLightType lighttype=PLightType::Point)
 	: PGameObject(position, orientation),enabled(true),type(lighttype) {};

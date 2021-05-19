@@ -170,6 +170,9 @@
     <ClCompile Include="PEditorContentBrowserWindow.cpp">
       <Filter>Core\EditorLayout\Panel</Filter>
     </ClCompile>
+    <ClCompile Include="PIconComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PGraphics.hpp">
@@ -321,6 +324,9 @@
     </ClInclude>
     <ClInclude Include="PEditorContentBrowserWindow.hpp">
       <Filter>Core\EditorLayout\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="PIconComponent.hpp">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

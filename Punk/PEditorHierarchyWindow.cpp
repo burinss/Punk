@@ -63,7 +63,7 @@ void PEditorHierarchyWindow::DrawNode(const std::pair<std::string, std::shared_p
 	ImGui::TableNextColumn();
 
 	auto scene = std::static_pointer_cast<PEditorScene>(m_layoutContext->GetContext());
-	auto flags = (scene->m_selectionContext==node.first)?ImGuiTreeNodeFlags_Selected: 0 | ImGuiTreeNodeFlags_OpenOnArrow;
+	auto flags = (scene->m_selectionContext==node.first)?ImGuiTreeNodeFlags_Selected: 0 | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 	bool opened = ImGui::TreeNodeEx((void*)node.second.get(), flags, node.second->Name().c_str());
 	
 	if (ImGui::IsItemClicked())

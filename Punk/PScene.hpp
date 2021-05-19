@@ -12,6 +12,7 @@ class PEditorViewportWindow;
 class PScene : public Task, public std::enable_shared_from_this<PScene>
 {
 	friend class PEditorViewportWindow;
+
 public:
 	PScene(const std::string& name = "Untitled");
 	virtual ~PScene(){}

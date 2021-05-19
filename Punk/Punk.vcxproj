@@ -82,14 +82,14 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\libx64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
-    <OutDir>$(SolutionDir)Build\bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)Build\bin\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\bin-int\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\libx64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
-    <OutDir>$(SolutionDir)Build\bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)Build\bin\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\bin-int\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -176,6 +176,7 @@
     <ClCompile Include="PEditorPropertyWindow.cpp" />
     <ClCompile Include="PEditorScene.cpp" />
     <ClCompile Include="PEditorViewportWindow.cpp" />
+    <ClCompile Include="PIconComponent.cpp" />
     <ClCompile Include="PIDSequence.cpp" />
     <ClCompile Include="PMesh2D.cpp" />
     <ClCompile Include="PRenderer3D.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="PIconComponent.hpp" />
     <ClInclude Include="PIDSequence.hpp" />
     <ClInclude Include="PMesh2D.hpp" />
     <ClInclude Include="PRenderer3D.hpp" />

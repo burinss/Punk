@@ -1,6 +1,17 @@
 #include "PLight.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
+void PLight::Render(double deltaTime, const std::shared_ptr<PShader>& shader)
+{
+
+	if (std::shared_ptr<PIconComponent> graphicsComp = FindComponent<PIconComponent>())
+	{
+		//graphicsComp->SetGameLights(scene->GameLights());
+		//graphicsComp->SetGameCamera(scene->ActiveCamera());
+		//graphicsComp->Render(deltaTime, shader);
+	}
+}
+
 void PLight::UpdateLightspaceMatrix(const PFrustum& frustum)
 {
     glm::mat4 lightP = glm::perspective(glm::radians(90.0f), 1.f, 1.f, 1000.f);

@@ -2,8 +2,7 @@
 #include "PFrustum.hpp"
 #include "PGameObject.hpp"
 #include "PunkDefines.hpp"
-
-
+#include "PIconComponent.hpp"
 
 class PLight :public PGameObject
 {
@@ -17,11 +16,23 @@ public:
 	float radius = 100.f;
 
 	PLight(const glm::vec3& position = glm::vec3(0.f, 1.f, 0.f), const glm::quat& orientation = glm::quat(glm::vec3(0.f)),PLightType lighttype=PLightType::Point)
-	: PGameObject(position, orientation),enabled(true),type(lighttype) {};
+	: PGameObject(position, orientation),enabled(true),type(lighttype) {
+
+		auto  icon = std::make_shared<PIconComponent>();
+		icon->Initialize();
+		icon->m_object = this;
+		m_components.push_back(icon);
+		
+	};
 	//PLight(const std::string& name="PunkLight") :PGameObject(name) {}
 	~PLight() {};
 
+	
+
 	void Initialize() override { PGameObject::Initialize(); }
+
+
+	void Render(double deltaTime, const std::shared_ptr<PShader>& shader)override;
 
 	glm::mat4 LightSpaceMatrix() const { return lightspaceMatrix_; }
 

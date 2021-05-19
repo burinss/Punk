@@ -64,6 +64,7 @@ void PEditorLayout::Initialize()
 	Task::Initialize();
 }
 
+
 void PEditorLayout::Update(double deltaTime)
 {
 	ImGui_ImplOpenGL3_NewFrame();

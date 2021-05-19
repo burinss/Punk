@@ -55,7 +55,7 @@ glm::mat4 PCamera::ProjectionMatrix()
 				heightAspect = windowSize.y / 10;
 				//projectionMatrix = glm::ortho(-widthAspect, widthAspect, -heightAspect, heightAspect);
 			}
-			projectionMatrix = glm::ortho(-widthAspect, widthAspect, -heightAspect, heightAspect, -0.000f, 1000.f);
+			projectionMatrix = glm::ortho(-widthAspect, widthAspect, -heightAspect, heightAspect, nearClippingPlane_, farClippingPlane_);
 		}
 	}
 	return projectionMatrix;

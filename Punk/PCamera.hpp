@@ -47,7 +47,9 @@ public:
 	void Render(double deltaTime, const std::shared_ptr<PShader>& shader)override;
 	
 	float NearField() const { return nearClippingPlane_; }
+	void SetNearField(float nearField) {nearClippingPlane_= nearField; }
 	float FarField() const { return farClippingPlane_; }
+	void SetFarField(float farField) { farClippingPlane_= farField; }
 	PFrustum& Frustum() { return frustum_; }
 
 	PCameraProjectionMode GetProjectionMode() { return m_projectionMode; }

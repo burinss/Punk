@@ -6,6 +6,7 @@
 #include "PFramebuffer.hpp"
 #include "ImGuizmo.h"
 #include "PCamera.hpp"
+#include "PTexture.h"
 
 void PEditorViewportWindow::Render()
 {

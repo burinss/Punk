@@ -78,7 +78,7 @@ void PEditorPropertyWindow::Render()
 					glm::mat4 modelMatrix = object->ModelMatrix();
 
 					ImGuizmo::SetDrawlist();
-					ImGuizmo::SetOrthographic(false);
+					ImGuizmo::SetOrthographic((int)camera->GetProjectionMode()==1);
 					ImGuizmo::SetRect(viewportPos.x, viewportPos.y, viewportSize.x, viewportSize.y);
 
 					ImGuizmo::Manipulate(&view[0][0], &editor->ActiveCamera()->ProjectionMatrix()[0][0], ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::LOCAL, &modelMatrix[0][0]);
@@ -205,7 +205,9 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 
 					ImGui::TableNextColumn();
 
+					ImGui::PushID("FOV");
 					ImGui::DragFloat("", &zoom);
+					ImGui::PopID();
 					camera->SetZoom(zoom);
 				}
 
@@ -235,6 +237,35 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 						ImGui::EndCombo();
 					}
 					ImGui::PopID();
+				}
+
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				{
+					ImGui::Text("Near plane:");
+					float near = camera->NearField();
+
+					ImGui::TableNextColumn();
+
+					ImGui::PushID("Near");
+					ImGui::DragFloat("", &near);
+					ImGui::PopID();
+					camera->SetNearField(near);
+				}
+
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				{
+					ImGui::Text("Far plane:");
+					float far = camera->FarField();
+
+					ImGui::TableNextColumn();
+
+					ImGui::PushID("Far");
+					ImGui::DragFloat("", &far);
+					ImGui::PopID();
+
+					camera->SetFarField(far);
 				}
 
 				ImGui::EndTable();

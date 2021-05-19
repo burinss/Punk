@@ -39,7 +39,7 @@ void PunkBase::Initialize(PSystemVariables settings)
 	m_scene = std::make_shared<PEditorScene>();
 	m_scene->Initialize();
 	//PModel Model("room/bathroom.fbx");
-	PModel Model("../../assets/house/WoodenCabinObj.obj");
+	PModel Model("../../assets/models/house/WoodenCabinObj.obj");
 	//PModel Model("KITBASH3D_SAMPLE.fbx");
 	//PModel Model("ventilator/vent.3ds");
 	//PModel Model("ludi/boy.3ds");

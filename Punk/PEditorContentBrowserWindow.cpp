@@ -94,7 +94,12 @@ void PEditorContentBrowserWindow::ShowFiles()
 	auto buttonSize = 96.f;
 	float cellPadding = 6.f;
 
-	columns = childWidth / (buttonSize+cellPadding);
+	columns = childWidth / (buttonSize + cellPadding);
+
+	if (columns==0||columns>63)
+	{
+		columns = 1;
+	}
 
 	ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2(cellPadding, cellPadding));
 

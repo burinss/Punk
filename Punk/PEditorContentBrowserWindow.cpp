@@ -15,8 +15,8 @@ void PEditorContentBrowserWindow::Render()
 		auto tableFlags = ImGuiTableFlags_BordersInnerV |ImGuiTableFlags_Resizable;
 		if (ImGui::BeginTable("split",2,tableFlags))
 		{
-			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_NoSort);
-			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_NoSort);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_NoSort | ImGuiTableColumnFlags_NoClip);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_NoSort | ImGuiTableColumnFlags_NoClip);
 
 			ImGui::TableNextRow();
 			if (ImGui::TableNextColumn())

@@ -20,7 +20,7 @@ void PEditorLayout::Initialize()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 	//ImGui::StyleColorsDark();
@@ -77,8 +77,14 @@ void PEditorLayout::Update(double deltaTime)
 		it->Render();
 
 	ImGui::EndFrame();
-	ImGui::UpdatePlatformWindows();
 	ImGui::Render();
+	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		GLFWwindow* backup_current_context = glfwGetCurrentContext();
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+		glfwMakeContextCurrent(backup_current_context);
+	}
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 

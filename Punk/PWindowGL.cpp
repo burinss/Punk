@@ -14,7 +14,7 @@ void PWindowGL::Initialize()
 	m_WindowHandle = CreateWindow(m_WindowSettings.windowSize.x, m_WindowSettings.windowSize.y, m_WindowSettings.maximized);
 
 	glfwSetWindowUserPointer((GLFWwindow*)m_WindowHandle, this);
-	glfwSetFramebufferSizeCallback((GLFWwindow*)m_WindowHandle, FrameBufferResizeCallback);
+	//glfwSetFramebufferSizeCallback((GLFWwindow*)m_WindowHandle, FrameBufferResizeCallback);
 	//glfwSetWindowSizeCallback(window, WindowSizeCallback);
 	m_WindowSettings.resolution = m_WindowSettings.windowSize;
 }
@@ -49,7 +49,8 @@ void PWindowGL::FramebufferResize(int width, int height)
 
 void PWindowGL::Destroy()
 {
-	glfwDestroyWindow((GLFWwindow*)m_WindowHandle);
+	GLFWwindow* window = static_cast<GLFWwindow*>(m_WindowHandle);
+	glfwDestroyWindow(window);
 }
 
 

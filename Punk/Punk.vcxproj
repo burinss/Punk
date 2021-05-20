@@ -147,7 +147,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -169,6 +169,8 @@
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="miniz.c" />
+    <ClCompile Include="ofbx.cpp" />
     <ClCompile Include="PEditorContentBrowserWindow.cpp" />
     <ClCompile Include="PEditorHierarchyWindow.cpp" />
     <ClCompile Include="PEditorLayout.cpp" />
@@ -191,6 +193,8 @@
     <ClCompile Include="PEngine.cpp" />
     <ClCompile Include="PFramebuffer.cpp" />
     <ClInclude Include="ImGuizmo.h" />
+    <ClInclude Include="miniz.h" />
+    <ClInclude Include="ofbx.h" />
     <ClInclude Include="PEditorContentBrowserWindow.hpp" />
     <ClInclude Include="PEditorHierarchyWindow.hpp" />
     <ClInclude Include="PEditorLayout.hpp" />

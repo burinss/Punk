@@ -1,5 +1,4 @@
 #include "PunkDefines.hpp"
-
 #include "PEditorPropertyWindow.hpp"
 #include "imgui.h"
 #include "ImGuizmo.h"
@@ -7,6 +6,9 @@
 #include "PGameObject.hpp"
 #include "PCamera.hpp"
 #include "PLight.hpp"
+#include "PStaticMeshComponent.hpp"
+#include "PMesh3D.hpp"
+#include "PMaterial.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/trigonometric.hpp>
@@ -113,6 +115,7 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 		//ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4, 4));
 
 		ImGui::Text(typeid(*gameObject.get()).name());
+
 		if (objectType == PEditorObjectType::LIGHT)
 		{
 			const std::string lightTypes[] = { "Directional", "Point", "Spot", "Area" };
@@ -268,6 +271,44 @@ void PEditorPropertyWindow::ShowObjectProperties(const std::shared_ptr<PGameObje
 					camera->SetFarField(far);
 				}
 
+				ImGui::EndTable();
+			}
+		}
+		else if (objectType == PEditorObjectType::OBJECT)
+		{
+			auto meshComponent = gameObject->FindComponent<PStaticMeshComponent>();
+
+			if (ImGui::BeginTable("", 2, flags))
+			{
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				{
+					ImGui::Text("Material");
+
+					ImGui::TableNextColumn();
+
+					if (auto mesh = std::static_pointer_cast<PMesh3D>(meshComponent->Mesh()))
+					{
+						auto material = mesh->GetMaterial();
+						/*
+						for (auto slot : material->GetSlots()){
+							if (slot.second!=nullptr)
+								ImGui::ImageButton((void*)slot.second->id, ImVec2(64, 64));
+							else
+								ImGui::ImageButton((void*)0, ImVec2(64, 64));
+							ImGui::SameLine();
+							ImGui::Text(slot.first.c_str());
+						}
+						*/
+						if (material->Get("diffuse") != nullptr)
+							ImGui::ImageButton((void*)material->Get("diffuse")->id, ImVec2(64, 64));
+						else
+							ImGui::ImageButton((void*)0, ImVec2(64, 64));
+
+						ImGui::SameLine();
+						ImGui::Text(material->GetName().data());
+					}
+				}
 				ImGui::EndTable();
 			}
 		}

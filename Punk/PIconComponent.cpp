@@ -12,7 +12,7 @@ void PIconComponent::Initialize()
 	m_iconShader = std::make_shared<PShader>("../../assets/shaders/billboard.vert", "../../assets/shaders/billboard.frag","");
 	m_iconShader->Initialize();
 	m_icon = std::make_shared<PTexture>();
-	m_icon->Load("light.png", "../../assets/icons/");
+	m_icon->Load("../../assets/icons/light.png", "");
 }
 
 void PIconComponent::Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP)
@@ -26,6 +26,6 @@ void PIconComponent::Render(double deltaTime, const std::shared_ptr<PShader>& sh
 		m_iconShader->SetVec3("billboardPosition", m_object->Position());
 		//m_iconShader->SetMat4("model", m_object->ModelMatrix());
 		m_iconShader->SetMat4("viewProjection", m_object->Scene()->ViewProjection());
-		m_mesh->Render(m_iconShader.get());
+		m_mesh->Render(m_iconShader);
 	}
 }

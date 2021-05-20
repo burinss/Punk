@@ -16,7 +16,8 @@ PTexture::PTexture(const glm::vec4 color)
 void PTexture::Load(const std::string& path, const std::string& directory, PTextureWrapping wrapping, bool hdr, bool flip)
 {
 	std::string filename = std::string(path);
-	filename = directory + '/' + filename;
+
+	if(directory!="")filename = directory + '/' + filename;
 
 	glGenTextures(1, &id);
 

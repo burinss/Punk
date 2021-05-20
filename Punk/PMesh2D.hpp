@@ -13,7 +13,7 @@ public:
 
 	void Initialize() override;
 
-	void Render(PShader* shader) override;
+	void Render(std::shared_ptr <PShader> shader) override;
 
 	static std::shared_ptr<PMesh2D> NewQuad();
 private:

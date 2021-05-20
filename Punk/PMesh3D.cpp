@@ -4,6 +4,7 @@
 #include "PShader.hpp"
 #include "PMesh3D.hpp"
 #include "PVertexArrayBuffer.hpp"
+#include "PMaterial.hpp"
 
 //PMesh3D::PMesh3D(std::vector<PVertex3D> vertices,
 //	std::vector<unsigned int> indices,
@@ -16,8 +17,8 @@
 //}
 PIDSequence PMesh3D::m_idGen("mesh");
 
-PMesh3D::PMesh3D(PVertex3DDataStruct vertexData, std::vector<std::shared_ptr<PTexture>> textures)
-	:m_vertexData(vertexData),_textures(textures)
+PMesh3D::PMesh3D(PVertex3DDataStruct vertexData, std::shared_ptr<PMaterial> material)
+	:m_vertexData(vertexData), m_material(material)
 {
 	id_ = m_idGen.Next();
 	Initialize();
@@ -36,8 +37,10 @@ void PMesh3D::Initialize()
 
 }
 
-void PMesh3D::Render(PShader* shader)
+void PMesh3D::Render(std::shared_ptr<PShader> shader)
 {
+	m_material->Use(shader);
+	/*
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
 	unsigned int normalNr = 1;
@@ -63,7 +66,9 @@ void PMesh3D::Render(PShader* shader)
 		// and finally bind the texture
 		_textures[i]->Bind(i+1);
 	}
-	
+	*/
+
+
 	//PSystems::GetGraphics()->Draw(VAO,_indices,PMeshDrawStyle::Triangle);
 	PSystems::GetGraphics()->Draw(m_vertexBuffer,m_vertexData, PMeshDrawStyle::Triangle);
 	// always good practice to set everything back to defaults once configured.

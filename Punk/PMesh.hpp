@@ -7,7 +7,7 @@ class PMesh : public Task {
 public:
 	virtual ~PMesh() {};
 
-	virtual void Render(PShader* shader) = 0;
+	virtual void Render(std::shared_ptr <PShader> shader) = 0;
 	virtual void Initialize() = 0;
 protected:
 	std::shared_ptr<PVertexArrayBuffer> m_vertexBuffer;

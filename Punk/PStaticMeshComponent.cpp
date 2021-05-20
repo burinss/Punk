@@ -56,7 +56,7 @@ void PStaticMeshComponent::Render(double deltaTime, const std::shared_ptr<PShade
 
 		//if(selected)PSystems::GetGraphics()->EnableStencilBuffer();
 
-		m_mesh->Render(shader.get());
+		m_mesh->Render(shader);
 
 		//if (selected)PSystems::GetGraphics()->DisableStencilBuffer();
 		if (selected)DrawOutlineIfEnabled(editor, modelMatrix, viewProjection);
@@ -74,7 +74,7 @@ void PStaticMeshComponent::DrawOutlineIfEnabled(const std::shared_ptr<PEditorSce
 	highlightShader->SetMat4("model", highlightModelMatrix);
 	highlightShader->SetMat4("viewProjection", viewProjection);
 	highlightShader->SetVec4("color", glm::vec4(1.0f));
-	m_mesh->Render(highlightShader.get());
+	m_mesh->Render(highlightShader);
 	PSystems::GetGraphics()->EnableStencilBuffer();
 	//PSystems::GetGraphics()->EnableDepthTesting();
 }

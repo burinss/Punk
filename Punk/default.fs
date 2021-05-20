@@ -24,7 +24,7 @@ uniform vec3 viewPos;
 
 uniform sampler2D shadowSampler;
 
-uniform sampler2D texture_diffuse1;
+uniform sampler2D diffuseTexture;
 uniform sampler2D texture_specular1;
 uniform sampler2D texture_normal1;
 
@@ -173,7 +173,7 @@ void main()
     	//reflectedLight += LightsArray[i].lightColor * specular * attenunation;
     }
 
-    vec4 albedoTexData = texture(texture_diffuse1, TexCoords);
+    vec4 albedoTexData = texture(diffuseTexture, TexCoords);
     vec4 albd = vec4(pow(albedoTexData.rgb, vec3(2.2)), albedoTexData.a);
 
     float shadow = PCSSShadow(FragPosLightSpace, 1/LightsArray[0].lightRadius);
@@ -198,6 +198,6 @@ void main()
 
     //FragColor = vec4(ambient + diffuse + specular, 1.0);
     //FragColor = vec4(1.0,1.0,1.0,1.0);
-    //FragColor=texture(texture_diffuse1, TexCoords);
-    //FragColor = vec4(result*(lightColor), texture(texture_diffuse1, TexCoords).a);
+    //FragColor=texture(diffuseTexture, TexCoords);
+    //FragColor = vec4(result*(lightColor), texture(diffuseTexture, TexCoords).a);
 }

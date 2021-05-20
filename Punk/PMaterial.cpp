@@ -6,10 +6,19 @@ PIDSequence PMaterial::m_idGen("material");
 
 void PMaterial::Initialize()
 {
-	auto defaultTexture = std::make_shared<PTexture>(glm::vec4(0.5f,0.5f,0.5f,1.0f));
-	m_textureSlots.insert({ "diffuse",defaultTexture });
-	m_textureSlots.insert({ "normal",defaultTexture });
-	m_textureSlots.insert({ "specular",defaultTexture });
+	//auto defaultTexture = std::make_shared<PTexture>(glm::vec4(0.5f,0.5f,0.5f,1.0f));
+	//m_textureSlots.insert({ "diffuse",defaultTexture });
+	//m_textureSlots.insert({ "normal",defaultTexture });
+	//m_textureSlots.insert({ "specular",defaultTexture });
+
+	for (auto slot : m_textureSlots)
+	{
+		if (slot.second != nullptr)
+		{
+			auto texture = slot.second;
+			slot.second->Load(texture->path, "");
+		}
+	}
 
 	Task::Initialize();
 
@@ -30,7 +39,7 @@ void PMaterial::Use(std::shared_ptr<PShader> shader)
 		if (slot.second != nullptr)
 		{
 			slot.second->Bind(textureSlot);
-			shader->SetInt(slot.first, textureSlot);
+			shader->SetInt(slot.first+"Texture", textureSlot);
 			textureSlot++;
 		}
 	}
@@ -42,7 +51,7 @@ void PMaterial::Set(std::string slot, std::shared_ptr<PTexture> texture)
 	{
 		return;
 	}
-	m_textureSlots[slot] == texture;
+	m_textureSlots[slot] = texture;
 }
 
 std::shared_ptr<PTexture> PMaterial::Get(std::string slot)

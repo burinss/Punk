@@ -9,6 +9,8 @@ class PCamera;
 class PLight;
 class PShader;
 class PEditorViewportWindow;
+class PMaterial;
+
 class PScene : public Task, public std::enable_shared_from_this<PScene>
 {
 	friend class PEditorViewportWindow;
@@ -66,6 +68,7 @@ protected:
 
 	std::map<std::string,std::shared_ptr<PGameObject>> m_gameObjects;
 	std::map<std::string, std::shared_ptr<PLight>> m_gameLights;
+	std::map<std::string, std::shared_ptr<PMaterial>> m_materials;
 
 	std::list<glm::mat4> m_matrixStack;
 

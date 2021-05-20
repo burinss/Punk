@@ -16,7 +16,7 @@ void PMesh2D::Initialize()
 	m_vertexBuffer = PVertexArrayBuffer::Create(m_vertexData);
 }
 
-void PMesh2D::Render(PShader* shader)
+void PMesh2D::Render(std::shared_ptr <PShader> shader)
 {
 	PSystems::GetGraphics()->Draw(m_vertexBuffer, m_vertexData, PMeshDrawStyle::Triangle);
 	//glActiveTexture(GL_TEXTURE0);

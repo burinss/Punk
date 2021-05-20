@@ -11,6 +11,8 @@
 #include <glad/glad.h>
 #include "PVertexArrayBuffer.hpp"
 #include "PIDSequence.hpp"
+#include "PMaterial.hpp"
+#include "PGlobals.hpp"
 
 void PModel::loadModel(std::string const& path)
 {
@@ -154,22 +156,59 @@ std::shared_ptr<PMesh3D> PModel::processMesh(aiMesh* mesh, const aiScene* scene)
 	// specular: texture_specularN
 	// normal: texture_normalN
 
+	std::shared_ptr<PMaterial> meshMaterial;
+	auto find = m_materials.find(material->GetName().C_Str());
+	if (find == m_materials.end())
+	{
+		auto tmp = std::make_shared<PMaterial>();
+		tmp->SetName(material->GetName().C_Str());
+
+		aiString str;
+		material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
+		std::cout << this->_directory << str.C_Str() << std::endl;
+		// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
+		bool skip = false;
+		for (unsigned int j = 0; j < _textures_loaded.size(); j++)
+		{
+
+			if (std::strcmp(_textures_loaded[j]->path.data(), str.C_Str()) == 0)
+			{
+				tmp->Set("diffuse", _textures_loaded[j]);
+				skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
+				break;
+			}
+		}
+		if (!skip)
+		{   // if texture hasn't been loaded already, load it
+			std::shared_ptr<PTexture> texture = std::make_shared<PTexture>();
+			texture->type = "diffuse";
+			texture->path = _directory + "/" + std::string(str.data);
+			tmp->Set("diffuse", texture);
+			_textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+		}
+		meshMaterial = tmp;
+		PSystems::GetTaskRunner()->AttachProcess(tmp);
+	}
+	else
+		meshMaterial = find->second;
+
+
 	// 1. diffuse maps
-	std::vector<std::shared_ptr<PTexture>> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-	textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+	//std::vector<std::shared_ptr<PTexture>> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+	//textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 	// 2. specular maps
-	std::vector<std::shared_ptr<PTexture>> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-	textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+	//std::vector<std::shared_ptr<PTexture>> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+	//textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	// 3. normal maps
-	std::vector<std::shared_ptr<PTexture>> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-	textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+	//std::vector<std::shared_ptr<PTexture>> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+	//textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
 	// 4. height maps
-	std::vector<std::shared_ptr<PTexture>> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+	//std::vector<std::shared_ptr<PTexture>> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+	//textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
 	// return a mesh object created from the extracted mesh data
 	//return PMesh3D(vertices, indices, textures);
-	return std::make_shared<PMesh3D>(vertexData, textures);
+	return std::make_shared<PMesh3D>(vertexData, meshMaterial);
 }
 
 std::vector<std::shared_ptr<PTexture>> PModel::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
@@ -233,8 +272,8 @@ PModel::PModel(std::string const& path, bool gamma)
 
 void PModel::Draw(PShader* shader)
 {
-	for (unsigned int i = 0; i < _meshes.size(); i++)
-		_meshes.at(i)->Render(shader);
+	//for (unsigned int i = 0; i < _meshes.size(); i++)
+	//	_meshes.at(i)->Render(shader);
 	/*for (auto mesh : _meshes)
 		mesh.second.Render(shader);*/
 }

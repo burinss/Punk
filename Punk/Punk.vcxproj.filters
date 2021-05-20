@@ -176,6 +176,12 @@
     <ClCompile Include="PMaterial.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="miniz.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ofbx.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PGraphics.hpp">
@@ -333,6 +339,12 @@
     </ClInclude>
     <ClInclude Include="PMaterial.hpp">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="miniz.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ofbx.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

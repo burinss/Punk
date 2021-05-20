@@ -10,6 +10,7 @@ class PunkBase;
 class PShader;
 class PGameObject;
 class PIDSequence;
+class PMaterial;
 
 class PModel {
 private:
@@ -17,6 +18,7 @@ private:
 	friend class PunkBase;
 	/*  Model Data */
 	std::vector<std::shared_ptr<PTexture>> _textures_loaded;
+	std::map<std::string,std::shared_ptr<PMaterial>> m_materials;
 	std::vector<std::shared_ptr<PMesh3D>> _meshes;
 	std::vector<std::shared_ptr<PGameObject>> objects;
 

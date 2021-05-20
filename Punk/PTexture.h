@@ -11,7 +11,7 @@ public:
     PTexture();
     PTexture(const glm::vec4 color);
 
-    void Load(const std::string& path, const std::string& directory, PTextureWrapping wrapping = PTextureWrapping::EdgeClamp, bool hdr = false, bool flip = true);
+    void Load(const std::string& path, const std::string& directory="", PTextureWrapping wrapping = PTextureWrapping::EdgeClamp, bool hdr = false, bool flip = true);
     void Load(const glm::vec4 color);
 
     void Resize(unsigned int width, unsigned int height, bool multisample = false);

@@ -92,7 +92,7 @@ void PEditorContentBrowserWindow::ShowFiles()
 
 	auto tableFlags =  ImGuiTableFlags_NoBordersInBody;
 	auto childWidth = ImGui::GetColumnWidth();
-	auto buttonSize = 96.f;
+	auto buttonSize = 86.f;
 	float cellPadding = 6.f;
 
 	columns = childWidth / (buttonSize + cellPadding);
@@ -110,7 +110,7 @@ void PEditorContentBrowserWindow::ShowFiles()
 		namespace fs = std::filesystem;
 
 		ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.f);
-
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0, 0.0, 0.0, 0.0));
 		for (const auto& entry : fs::directory_iterator(m_selectedPath))
 		{
 			if (entry.is_regular_file()|| entry.is_directory())
@@ -125,10 +125,19 @@ void PEditorContentBrowserWindow::ShowFiles()
 				{
 					auto directoryPathString = entry.path().u8string();
 					auto fileName = directoryPathString.substr(directoryPathString.find_last_of("\\") + 1);
+					
+
 
 					if (entry.is_regular_file()) 
 					{
-						ImGui::ImageButton((void*)m_layoutContext->GetIcon("File")->id, ImVec2(buttonSize - cellPadding, buttonSize - cellPadding));
+						auto format = fileName.substr(fileName.find_last_of(".") + 1);
+						auto fileIcon = m_layoutContext->GetIcon("File");
+
+						format == "fbx" ? fileIcon = m_layoutContext->GetIcon(format) :
+							format == "png" ? fileIcon = m_layoutContext->GetIcon(format) :
+							format == "obj" ? fileIcon = m_layoutContext->GetIcon(format) :
+							format == "jpg" ? fileIcon = m_layoutContext->GetIcon(format) : fileIcon = m_layoutContext->GetIcon("File");
+						ImGui::ImageButton((void*)fileIcon->id, ImVec2(buttonSize - cellPadding, buttonSize - cellPadding));
 					}
 					else if (entry.is_directory())
 					{
@@ -143,6 +152,7 @@ void PEditorContentBrowserWindow::ShowFiles()
 				currentCol++;
 			}
 		}
+		ImGui::PopStyleColor(1);
 		ImGui::PopStyleVar(1);
 		ImGui::EndTable();
 	}

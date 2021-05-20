@@ -21,6 +21,7 @@ public:
 
 	auto GetContext() const{ return m_sceneContext.lock(); }
 	auto GetIconMap() const { return m_iconMap; }
+
 	std::shared_ptr<PTexture> GetIcon(std::string name)const { return m_iconMap.at(name); }
 	void PushIcon(std::string name, std::shared_ptr<PTexture> icon) { m_iconMap.insert({ name,icon }); }
 

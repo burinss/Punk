@@ -10,6 +10,7 @@
 
 void PEditorViewportWindow::Render()
 {
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2.f, 2.f));
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(640, 480));
 	if (ImGui::Begin("Viewport"))
 	{
@@ -51,5 +52,5 @@ void PEditorViewportWindow::Render()
 		
 		ImGui::End();
 	}
-	ImGui::PopStyleVar(1);
+	ImGui::PopStyleVar(2);
 }

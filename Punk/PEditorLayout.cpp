@@ -10,6 +10,7 @@
 #include "PEditorPropertyWindow.hpp"
 #include "PEditorMenuBar.hpp"
 #include "PEditorContentBrowserWindow.hpp"
+#include "PEditorToolBar.hpp"
 #include "ImGuizmo.h"
 #include "PTexture.h"
 
@@ -57,6 +58,7 @@ void PEditorLayout::Initialize()
 	ImGui_ImplGlfw_InitForOpenGL(glfwGetCurrentContext(), true);
 	ImGui_ImplOpenGL3_Init("version 400 core");
 
+	m_windows.push_back(std::make_shared<PEditorToolBar>(shared_from_this()));
 	m_windows.push_back(std::make_shared<PEditorMenuBar>(shared_from_this()));
 	m_windows.push_back(std::make_shared<PEditorHierarchyWindow>(shared_from_this()));
 	m_windows.push_back(std::make_shared<PEditorViewportWindow>(shared_from_this()));
@@ -107,7 +109,21 @@ void PEditorLayout::LoadIconImages()
 
 	m_iconMap.insert({ "Folder", std::make_shared<PTexture>() });
 	m_iconMap.insert({ "File", std::make_shared<PTexture>() });
+	m_iconMap.insert({ "Move", std::make_shared<PTexture>() });
+	m_iconMap.insert({ "Rotate", std::make_shared<PTexture>() });
+	m_iconMap.insert({ "jpg", std::make_shared<PTexture>() });
+	m_iconMap.insert({ "obj", std::make_shared<PTexture>() });
+	m_iconMap.insert({ "fbx", std::make_shared<PTexture>() });
+	m_iconMap.insert({ "png", std::make_shared<PTexture>() });
+	
+
 
 	m_iconMap["File"]->Load("File.png", iconPath.generic_string());
 	m_iconMap["Folder"]->Load("Folder.png", iconPath.generic_string());
+	m_iconMap["Move"]->Load("Move.png", iconPath.generic_string());
+	m_iconMap["Rotate"]->Load("Rotate.png", iconPath.generic_string());
+	m_iconMap["jpg"]->Load("Jpg.png", iconPath.generic_string());
+	m_iconMap["obj"]->Load("Obj.png", iconPath.generic_string());
+	m_iconMap["png"]->Load("Png.png", iconPath.generic_string());
+	m_iconMap["fbx"]->Load("Fbx.png", iconPath.generic_string());
 }

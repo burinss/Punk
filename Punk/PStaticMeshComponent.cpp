@@ -59,7 +59,7 @@ void PStaticMeshComponent::Render(double deltaTime, const std::shared_ptr<PShade
 		m_mesh->Render(shader);
 
 		//if (selected)PSystems::GetGraphics()->DisableStencilBuffer();
-		if (selected)DrawOutlineIfEnabled(editor, modelMatrix, viewProjection);
+		//if (selected)DrawOutlineIfEnabled(editor, modelMatrix, viewProjection);
 		//PSystems::GetGraphics()->EnableStencilBuffer();
 	}
 }

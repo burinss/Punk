@@ -147,7 +147,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -177,6 +177,7 @@
     <ClCompile Include="PEditorMenuBar.cpp" />
     <ClCompile Include="PEditorPropertyWindow.cpp" />
     <ClCompile Include="PEditorScene.cpp" />
+    <ClCompile Include="PEditorToolBar.cpp" />
     <ClCompile Include="PEditorViewportWindow.cpp" />
     <ClCompile Include="PIconComponent.cpp" />
     <ClCompile Include="PIDSequence.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="PEditorMenuBar.hpp" />
     <ClInclude Include="PEditorPropertyWindow.hpp" />
     <ClInclude Include="PEditorScene.hpp" />
+    <ClInclude Include="PEditorToolBar.hpp" />
     <ClInclude Include="PEditorViewportWindow.hpp" />
     <ClInclude Include="PEditorWindow.hpp" />
     <ClInclude Include="PFramebuffer.hpp" />

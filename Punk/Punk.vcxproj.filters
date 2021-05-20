@@ -182,6 +182,9 @@
     <ClCompile Include="ofbx.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="PEditorToolBar.cpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PGraphics.hpp">
@@ -345,6 +348,9 @@
     </ClInclude>
     <ClInclude Include="ofbx.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PEditorToolBar.hpp">
+      <Filter>Core\EditorLayout\Panel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

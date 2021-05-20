@@ -61,7 +61,7 @@ glm::mat4 PCamera::ProjectionMatrix()
 	return projectionMatrix;
 }
 
-void PCamera::Render(double deltaTime, const std::shared_ptr<PShader>& shader)
+void PCamera::Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP)
 {
 
 	lastDeltaTime_ = currentDeltaTime_;

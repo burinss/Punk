@@ -15,7 +15,7 @@ void PIconComponent::Initialize()
 	m_icon->Load("light.png", "../../assets/icons/");
 }
 
-void PIconComponent::Render(double deltaTime, const std::shared_ptr<PShader>& shader)
+void PIconComponent::Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP)
 {
 	if (m_iconShader!=nullptr)
 	{

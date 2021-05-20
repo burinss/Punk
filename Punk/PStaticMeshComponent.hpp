@@ -16,7 +16,7 @@ public:
 	void Initialize() override { PComponent::Initialize(); }
 	void Initialize(std::shared_ptr<PMesh> mesh) { m_mesh = mesh; }
 
-	void Render(double deltaTime, const std::shared_ptr<PShader>& shader);
+	void Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP= PRenderOp::Color);
 	bool Renderable() override { return true; }
 
 	std::shared_ptr<PMesh> Mesh() { return m_mesh; }

@@ -1,7 +1,7 @@
 #include "PLight.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
-void PLight::Render(double deltaTime, const std::shared_ptr<PShader>& shader)
+void PLight::Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP)
 {
 
 	if (std::shared_ptr<PIconComponent> graphicsComp = FindComponent<PIconComponent>())

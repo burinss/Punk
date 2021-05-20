@@ -8,7 +8,7 @@
 #include "PEditorScene.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
-void PStaticMeshComponent::Render(double deltaTime, const std::shared_ptr<PShader>& shader)
+void PStaticMeshComponent::Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP )
 {
 	std::shared_ptr<PEditorScene> editor;
 	bool selected = false;

@@ -26,7 +26,7 @@ void PGameObject::PreRender()
 	scene->PushMatrix(scene->TopMatrix() * m_properties.modelMatrix);
 }
 
-void PGameObject::Render(double deltaTime, const std::shared_ptr<PShader>& shader)
+void PGameObject::Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP)
 {
 	if (std::shared_ptr<PStaticMeshComponent> graphicsComp = FindComponent<PStaticMeshComponent>())
 	{
@@ -36,7 +36,7 @@ void PGameObject::Render(double deltaTime, const std::shared_ptr<PShader>& shade
 	}
 }
 
-void PGameObject::RenderChildren(double deltaTime, const std::shared_ptr<PShader>& shader)
+void PGameObject::RenderChildren(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP)
 {
 	std::vector<std::shared_ptr<PGameObject>>::reverse_iterator it = m_childrens.rbegin(), end = m_childrens.rend();
 	for (; it != end; it++)
@@ -45,7 +45,7 @@ void PGameObject::RenderChildren(double deltaTime, const std::shared_ptr<PShader
 		go->PreRender();
 		if (go->IsVisible())
 		{
-			go->Render(deltaTime, shader);
+			go->Render(deltaTime, shader,renderOP);
 		}
 		go->RenderChildren(deltaTime, shader);
 		go->PostRender();

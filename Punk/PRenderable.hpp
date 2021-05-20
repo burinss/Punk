@@ -11,7 +11,7 @@ class PRenderable
 
 public:
 
-    virtual void Render(double deltaTime, const std::shared_ptr<PShader>& shader/*, ZRenderOp renderOp = ZRenderOp::Color*/) = 0;
+    virtual void Render(double deltaTime, const std::shared_ptr<PShader>& shader,PRenderOp renderOP = PRenderOp::Color) = 0;
     virtual bool Renderable() = 0;
 
 };

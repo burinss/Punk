@@ -173,6 +173,9 @@
     <ClCompile Include="PIconComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="PMaterial.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PGraphics.hpp">
@@ -327,6 +330,9 @@
     </ClInclude>
     <ClInclude Include="PIconComponent.hpp">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PMaterial.hpp">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

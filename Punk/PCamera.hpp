@@ -44,7 +44,7 @@ public:
 	
 	glm::mat4 ProjectionMatrix();
 	
-	void Render(double deltaTime, const std::shared_ptr<PShader>& shader)override;
+	void Render(double deltaTime, const std::shared_ptr<PShader>& shader,PRenderOp renerOP=PRenderOp::Color)override;
 	
 	float NearField() const { return nearClippingPlane_; }
 	void SetNearField(float nearField) {nearClippingPlane_= nearField; }

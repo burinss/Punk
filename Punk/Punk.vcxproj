@@ -178,6 +178,7 @@
     <ClCompile Include="PEditorViewportWindow.cpp" />
     <ClCompile Include="PIconComponent.cpp" />
     <ClCompile Include="PIDSequence.cpp" />
+    <ClCompile Include="PMaterial.cpp" />
     <ClCompile Include="PMesh2D.cpp" />
     <ClCompile Include="PRenderer3D.cpp" />
     <ClCompile Include="PRenderPass.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="PIconComponent.hpp" />
     <ClInclude Include="PIDSequence.hpp" />
+    <ClInclude Include="PMaterial.hpp" />
     <ClInclude Include="PMesh2D.hpp" />
     <ClInclude Include="PRenderer3D.hpp" />
     <ClInclude Include="PRenderPass.hpp" />

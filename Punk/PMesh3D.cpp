@@ -58,7 +58,8 @@ void PMesh3D::Render(PShader* shader)
 			number = std::to_string(heightNr++); // transfer unsigned int to stream
 
 												 // now set the sampler to the correct texture unit
-		glUniform1i(glGetUniformLocation(shader->GetID(), (name + number).c_str()), i+1);
+		//glUniform1i(glGetUniformLocation(shader->GetID(), (name + number).c_str()), i+1);
+		shader->SetInt((name + number).c_str(), i + 1);
 		// and finally bind the texture
 		_textures[i]->Bind(i+1);
 	}
@@ -66,5 +67,5 @@ void PMesh3D::Render(PShader* shader)
 	//PSystems::GetGraphics()->Draw(VAO,_indices,PMeshDrawStyle::Triangle);
 	PSystems::GetGraphics()->Draw(m_vertexBuffer,m_vertexData, PMeshDrawStyle::Triangle);
 	// always good practice to set everything back to defaults once configured.
-	glActiveTexture(GL_TEXTURE0);
+	//glActiveTexture(GL_TEXTURE0);
 }

@@ -29,8 +29,8 @@ public:
    //virtual void Initialize(std::shared_ptr<ZOFNode> root);
 
     virtual void PreRender();
-    virtual void Render(double deltaTime, const std::shared_ptr<PShader>& shader/*, ZRenderOp renderOp = ZRenderOp::Color*/) override;
-    virtual void RenderChildren(double deltaTime, const std::shared_ptr<PShader>& shader/*, ZRenderOp renderOp = ZRenderOp::Color*/);
+    virtual void Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP = PRenderOp::Color) override;
+    virtual void RenderChildren(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP = PRenderOp::Color);
     virtual void PostRender();
     virtual bool Renderable() override { return true; }
 

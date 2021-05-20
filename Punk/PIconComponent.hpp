@@ -13,7 +13,7 @@ public:
 
 	void Initialize() override;
 
-	void Render(double deltaTime, const std::shared_ptr<PShader>& shader) override;
+	void Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP) override;
 	bool Renderable() override { return true; }
 
 protected:

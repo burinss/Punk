@@ -32,7 +32,7 @@ public:
 	void Initialize() override { PGameObject::Initialize(); }
 
 
-	void Render(double deltaTime, const std::shared_ptr<PShader>& shader)override;
+	void Render(double deltaTime, const std::shared_ptr<PShader>& shader, PRenderOp renderOP = PRenderOp::Color)override;
 
 	glm::mat4 LightSpaceMatrix() const { return lightspaceMatrix_; }
 

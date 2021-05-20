@@ -62,7 +62,7 @@ void PRenderPass::Perform(double deltaTime)
 		screenQuad_->Render(shader_.get());
 	}
 	else {
-		root_->Render(deltaTime, shader_/*, renderOp_*/);
+		root_->Render(deltaTime, shader_, renderOp_);
 	}
 
 	if (renderOp_ == PRenderOp::Post) {

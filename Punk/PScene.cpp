@@ -153,9 +153,9 @@ void PScene::Initialize()
 
 	m_renderer3D = std::make_shared<PRenderer3D>();
 
-	m_shadowShader	=	std::shared_ptr<PShader>(new PShader(std::string("shadow.vert"), std::string("depth.frag"), std::string("")));
-	m_colorShader	=	std::shared_ptr<PShader>(new PShader(std::string("default.vs"), std::string("default.fs"), std::string("")));
-	m_postShader	=	std::shared_ptr<PShader>(new PShader(std::string("postprocess.vert"), std::string("postprocess.frag"), std::string("")));
+	m_shadowShader	=	std::shared_ptr<PShader>(new PShader(assetsPath + std::string("shaders/shadow.vert"), assetsPath + std::string("shaders/depth.frag"), std::string("")));
+	m_colorShader	=	std::shared_ptr<PShader>(new PShader(assetsPath + std::string("shaders/default.vs"), assetsPath + std::string("shaders/default.fs"), std::string("")));
+	m_postShader	=	std::shared_ptr<PShader>(new PShader(assetsPath + std::string("shaders/postprocess.vert"), assetsPath + std::string("shaders/postprocess.frag"), std::string("")));
 
 	m_shadowShader->Initialize();
 	m_colorShader->Initialize();

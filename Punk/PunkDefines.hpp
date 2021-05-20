@@ -9,6 +9,9 @@
 #include <sstream>
 #include <map>
 #include <list>
+#include <filesystem>
+
+const std::string assetsPath = "../../assets/";
 
 class Task;
 

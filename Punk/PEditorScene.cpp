@@ -10,9 +10,9 @@ void PEditorScene::Initialize()
 {
 	PScene::Initialize();
 	m_highlightShader=std::make_shared<PShader>(
-			std::string("outline.vert"),
-			std::string("outline.frag"),
-			std::string("")
+		assetsPath + std::string("shaders/outline.vert"),
+		assetsPath + std::string("shaders/outline.frag"),
+		std::string("")
 		);
 		
 	m_highlightShader->Initialize();

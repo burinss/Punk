@@ -11,6 +11,7 @@
 #include "PEditorMenuBar.hpp"
 #include "PEditorContentBrowserWindow.hpp"
 #include "ImGuizmo.h"
+#include "PTexture.h"
 
 void PEditorLayout::Initialize()
 {
@@ -61,6 +62,9 @@ void PEditorLayout::Initialize()
 	m_windows.push_back(std::make_shared<PEditorViewportWindow>(shared_from_this()));
 	m_windows.push_back(std::make_shared<PEditorPropertyWindow>(shared_from_this()));
 	m_windows.push_back(std::make_shared<PEditorContentBrowserWindow>(shared_from_this()));
+
+	LoadIconImages();
+
 	Task::Initialize();
 }
 
@@ -93,4 +97,17 @@ void PEditorLayout::CleanUp()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+}
+
+void PEditorLayout::LoadIconImages()
+{
+	namespace fs = std::filesystem;
+
+	auto iconPath = fs::path(assetsPath + "icons");
+
+	m_iconMap.insert({ "Folder", std::make_shared<PTexture>() });
+	m_iconMap.insert({ "File", std::make_shared<PTexture>() });
+
+	m_iconMap["File"]->Load("File.png", iconPath.generic_string());
+	m_iconMap["Folder"]->Load("Folder.png", iconPath.generic_string());
 }

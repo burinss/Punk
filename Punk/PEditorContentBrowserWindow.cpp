@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include <filesystem>
 #include "PTexture.h"
+#include "PEditorLayout.hpp"
 
 void PEditorContentBrowserWindow::Render()
 {
@@ -127,11 +128,11 @@ void PEditorContentBrowserWindow::ShowFiles()
 
 					if (entry.is_regular_file()) 
 					{
-						ImGui::ImageButton((void*)m_iconMap["File"]->id, ImVec2(buttonSize - cellPadding, buttonSize - cellPadding));
+						ImGui::ImageButton((void*)m_layoutContext->GetIcon("File")->id, ImVec2(buttonSize - cellPadding, buttonSize - cellPadding));
 					}
 					else if (entry.is_directory())
 					{
-						if (ImGui::ImageButton((void*)m_iconMap["Folder"]->id, ImVec2(buttonSize - cellPadding, buttonSize - cellPadding)))
+						if (ImGui::ImageButton((void*)m_layoutContext->GetIcon("File")->id, ImVec2(buttonSize - cellPadding, buttonSize - cellPadding)))
 						{
 							m_selectedPath = entry;
 						}
@@ -149,15 +150,3 @@ void PEditorContentBrowserWindow::ShowFiles()
 }
 
 //TODO: make global path consts
-void PEditorContentBrowserWindow::LoadIconImages()
-{
-	namespace fs = std::filesystem;
-
-	auto iconPath = fs::current_path().parent_path().parent_path() / "assets"/"icons";
-
-	m_iconMap.insert({ "Folder", std::make_shared<PTexture>() });
-	m_iconMap.insert({ "File", std::make_shared<PTexture>() });
-
-	m_iconMap["File"]->Load("File.png", iconPath.generic_string());
-	m_iconMap["Folder"]->Load("Folder.png", iconPath.generic_string());
-}
